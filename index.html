@@ -1231,7 +1231,7 @@ let pulse=()=>{};
   const DX=mob?1.25:2.5;
   const SECTS=[
     ['.hero',{x:mob?0:2.45,y:mob?1.9:.1,s:mob?.5:1,spin:1,c1:'#5B6CFF',c2:'#00C8FF',c3:'#B14BFF'}],
-    ['#diag',{x:mob?-DX:DX,y:0,s:mob?.3:.5,spin:1.5,c1:'#FF3B5C',c2:'#FF9F2E',c3:'#B14BFF'}],
+    ['#diag',{x:mob?-DX:DX,y:-.6,s:mob?.3:.45,spin:1.5,c1:'#FF3B5C',c2:'#FF9F2E',c3:'#B14BFF'}],
     ['#network',{x:mob?-DX:-3.2,y:-.6,s:mob?.26:.34,spin:1,c1:'#5B6CFF',c2:'#00C8FF',c3:'#5B6CFF'}],
     ['#how',{x:DX,y:0,s:mob?.27:.44,spin:1.1,c1:'#00C8FF',c2:'#5B6CFF',c3:'#B14BFF'}],
     ['#mods',{x:mob?-DX:-3.1,y:0,s:mob?.25:.4,spin:1,c1:'#B14BFF',c2:'#00C8FF',c3:'#5B6CFF'}],
@@ -1244,7 +1244,8 @@ let pulse=()=>{};
   ];
   function setT(st){T.x=st.x;T.y=st.y;T.s=st.s;T.spin=st.spin;tC1.set(st.c1);tC2.set(st.c2);tC3.set(st.c3);}
   if(hasST){SECTS.forEach(pair=>{const el=document.querySelector(pair[0]);if(!el)return;
-    ScrollTrigger.create({trigger:el,start:'top 55%',end:'bottom 55%',
+    const late=pair[0]==='.final';
+    ScrollTrigger.create({trigger:el,start:late?'top 18%':'top 55%',end:'bottom 55%',
       onToggle(self){if(self.isActive)setT(pair[1]);}});});}
   let tx=0,ty=0,mx=0,my=0;
   addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;},{passive:true});
