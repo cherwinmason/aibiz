@@ -169,7 +169,7 @@ section{position:relative;z-index:1}
 /* ---------- diagnostics (problem) ---------- */
 .diag .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
 @media(max-width:920px){.diag .cards{grid-template-columns:1fr}}
-.dcard{position:relative;border-radius:20px;padding:30px 28px;overflow:hidden;background:#fff;border:1px solid var(--line);transition:transform .3s,box-shadow .3s,border-color .3s}
+.dcard{position:relative;border-radius:20px;padding:30px 28px;overflow:hidden;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s,border-color .3s}
 .dcard:hover{transform:translateY(-5px);box-shadow:0 22px 54px rgba(255,59,92,.13);border-color:rgba(255,59,92,.4)}
 .dcard .scan{position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0;transition:opacity .3s}
 .dcard:hover .scan{opacity:1;animation:scan 1.6s linear infinite}
@@ -178,10 +178,10 @@ section{position:relative;z-index:1}
   background:rgba(255,59,92,.09);border:1px solid rgba(255,59,92,.25);padding:5px 11px;border-radius:100px;margin-bottom:18px}
 .dcard .sev i{width:6px;height:6px;border-radius:50%;background:var(--red);animation:corepulse 1.2s infinite}
 .dcard h3{font-size:19px;font-weight:700;letter-spacing:-.015em;line-height:1.25}
-.dcard p{margin-top:10px;font-size:13.5px;color:var(--muted);line-height:1.6}
-.dcard .meter{margin-top:20px;height:5px;background:var(--bg2);border-radius:4px;overflow:hidden}
+.dcard p{margin:10px 0 22px;font-size:13.5px;color:var(--muted);line-height:1.6}
+.dcard .meter{margin-top:auto;padding-top:0;height:5px;background:var(--bg2);border-radius:4px;overflow:hidden}
 .dcard .meter i{display:block;height:100%;width:0%;border-radius:4px;background:linear-gradient(90deg,var(--amb),var(--red))}
-.dcard .mlab{display:flex;justify-content:space-between;font:600 8.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:7px}
+.dcard .mlab{display:flex;justify-content:space-between;align-items:baseline;white-space:nowrap;gap:10px;font:600 8.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:7px}
 .diag .verdict{margin-top:40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;border-radius:16px;border:1px solid rgba(255,59,92,.3);background:rgba(255,59,92,.05);padding:20px 26px}
 .diag .verdict .vt{font:700 10px var(--mono);letter-spacing:.2em;color:var(--red);text-transform:uppercase;flex:none}
 .diag .verdict p{font-size:clamp(15px,1.7vw,19px);font-weight:600}
@@ -331,6 +331,10 @@ section{position:relative;z-index:1}
 .fq .ans{overflow:hidden;height:0}
 .fq .ans p{padding:0 24px 24px;color:var(--muted);font-size:14.5px;max-width:700px;line-height:1.65}
 
+/* faq: centered layout */
+.faq .wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+.faq .list{width:100%;text-align:left}
+
 /* ---------- final ---------- */
 .final{text-align:center;overflow:hidden;position:relative}
 .final .auro2{position:absolute;inset:0;pointer-events:none;
@@ -381,6 +385,11 @@ footer{border-top:1px solid var(--line);background:rgba(255,255,255,.6);backdrop
   .monitor .mtitle{font-size:0;letter-spacing:0}
   .monitor .mtitle .mlive{font-size:10px;letter-spacing:.2em}
   .bench .swipehint{display:flex}
+  .hero .sys{font-size:9px;letter-spacing:.16em;padding:8px 13px;margin-bottom:18px}
+  .hero .sys .bdtail{display:none}
+  .hero .sub{margin-top:16px;font-size:14.5px}
+  .hero .ctas{margin-top:22px;gap:10px}
+  .hero .strip{margin-top:30px}
   .hero .ctas .btn,.hero .ctas .btn-ghost{width:100%;justify-content:center}
   .strip-in{gap:18px 28px;padding:14px clamp(18px,4vw,52px)}
   .stat .v{font-size:18px}
@@ -453,7 +462,7 @@ footer{border-top:1px solid var(--line);background:rgba(255,255,255,.6);backdrop
   <div class="chip c2" data-float><span class="ck">Avg response</span><span class="cv" id="chipResp">41s</span></div>
   <div class="chip c3" data-float><span class="ck">Tasks running</span><span class="cv" id="chipTasks">7</span></div>
   <div class="hwrap">
-    <div class="sys rv"><span class="ok"></span>DONE-FOR-YOU AI MARKETING &amp; SALES DEPARTMENTS — BUILT &amp; RUN BY OUTPAZE</div>
+    <div class="sys rv"><span class="ok"></span>DONE-FOR-YOU AI MARKETING &amp; SALES DEPARTMENTS<span class="bdtail"> — BUILT &amp; RUN BY OUTPAZE</span></div>
     <h1 id="h1">
       <span class="row"><span class="in">More meetings.</span></span>
       <span class="row"><span class="in gtx">More revenue.</span></span>
@@ -1222,15 +1231,15 @@ let pulse=()=>{};
   const DX=mob?1.25:2.5;
   const SECTS=[
     ['.hero',{x:mob?0:2.45,y:mob?1.9:.1,s:mob?.5:1,spin:1,c1:'#5B6CFF',c2:'#00C8FF',c3:'#B14BFF'}],
-    ['#diag',{x:-DX,y:0,s:mob?.3:.5,spin:1.5,c1:'#FF3B5C',c2:'#FF9F2E',c3:'#B14BFF'}],
-    ['#network',{x:-DX,y:-.2,s:mob?.26:.42,spin:1,c1:'#5B6CFF',c2:'#00C8FF',c3:'#5B6CFF'}],
+    ['#diag',{x:mob?-DX:DX,y:0,s:mob?.3:.5,spin:1.5,c1:'#FF3B5C',c2:'#FF9F2E',c3:'#B14BFF'}],
+    ['#network',{x:mob?-DX:-3.2,y:-.6,s:mob?.26:.34,spin:1,c1:'#5B6CFF',c2:'#00C8FF',c3:'#5B6CFF'}],
     ['#how',{x:DX,y:0,s:mob?.27:.44,spin:1.1,c1:'#00C8FF',c2:'#5B6CFF',c3:'#B14BFF'}],
-    ['#mods',{x:-DX,y:0,s:mob?.25:.4,spin:1,c1:'#B14BFF',c2:'#00C8FF',c3:'#5B6CFF'}],
+    ['#mods',{x:mob?-DX:-3.1,y:0,s:mob?.25:.4,spin:1,c1:'#B14BFF',c2:'#00C8FF',c3:'#5B6CFF'}],
     ['#ctrl',{x:0,y:0,s:.13,spin:2.4,c1:'#0BC982',c2:'#00C8FF',c3:'#0BC982'}],
     ['#tele',{x:DX,y:0,s:mob?.28:.46,spin:1,c1:'#0BC982',c2:'#00C8FF',c3:'#5B6CFF'}],
-    ['#bench',{x:-DX,y:0,s:mob?.25:.4,spin:1,c1:'#5B6CFF',c2:'#B14BFF',c3:'#00C8FF'}],
+    ['#bench',{x:mob?-DX:-3.1,y:0,s:mob?.25:.4,spin:1,c1:'#5B6CFF',c2:'#B14BFF',c3:'#00C8FF'}],
     ['#deploy',{x:DX,y:0,s:mob?.28:.46,spin:1.2,c1:'#5B6CFF',c2:'#00C8FF',c3:'#B14BFF'}],
-    ['#faq',{x:-DX,y:0,s:mob?.22:.34,spin:.8,c1:'#5B6CFF',c2:'#00C8FF',c3:'#B14BFF'}],
+    ['#faq',{x:mob?-DX:-3.4,y:0,s:mob?.22:.3,spin:.8,c1:'#5B6CFF',c2:'#00C8FF',c3:'#B14BFF'}],
     ['.final',{x:0,y:-1.7,s:mob?.7:1.1,spin:2.8,c1:'#5B6CFF',c2:'#00C8FF',c3:'#B14BFF'}]
   ];
   function setT(st){T.x=st.x;T.y=st.y;T.s=st.s;T.spin=st.spin;tC1.set(st.c1);tC2.set(st.c2);tC3.set(st.c3);}
